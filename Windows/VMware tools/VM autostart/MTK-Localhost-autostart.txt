@@ -1,0 +1,2 @@
+"C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe" start "D:\Softwares\VMs\MTK\MTK-LocalHost.vmx"
+"C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe" start "D:\Softwares\VMs\Ubuntu-Server\Ubuntu-Server.vmx"

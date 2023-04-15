@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe" start "D:\Softwares\VMs\Ubuntu_22.10\Ubuntu_22.10.vmx"

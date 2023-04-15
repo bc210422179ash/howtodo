@@ -1,0 +1,23 @@
+Speed Queues
+:for i from=201 t=250 do={/queue simple add name="Invozone-23-II-$i" max-limit=10M/10M target="192.168.23.$i"}
+:for i from=51 t=250 do={/queue simple add name="Guest-$i" max-limit=5M/5M target="10.10.20.$i"}
+:for i from=51 t=250 do={/queue simple add name="AHW-$i" max-limit=10M/10M target="192.168.10.$i"}
+
+
+
+dhcp lease
+/ip dhcp-server lease add address=10.10.40.106 comment=Hafeez-DevOps mac-address=34:1C:F0:35:C6:BA server=dhcp1
+
+
+Filter Rules for Address List 
+/ip firewall raw add action=add-dst-to-address-list address-list=iris.fbr.gov.pk address-list-timeout=none-dynamic chain=prerouting comment="iris.fbr.gov.pk IP to Address-List" content=iris.fbr.gov.pk
+/ip firewall raw add action=add-dst-to-address-list address-list=e.pra.punjab.gov.pk address-list-timeout=none-dynamic chain=prerouting comment="e.pra.punjab.gov.pk IP to Address-List" content=e.pra.punjab.gov.pk
+/ip firewall raw add action=add-dst-to-address-list address-list=vulms.vu.edu.pk address-list-timeout=none-dynamic chain=prerouting comment="vulms.vu.edu.pk IP to Address-List" content=vulms.vu.edu.pk
+
+
+
+
+Filter Rule for Traffic Route
+/ip firewall filter add action=drop chain=forward comment="iris.fbr.gov.pk only from WAN1" dst-address-list=iris.fbr.gov.pk in-interface=LAN-Bridge out-interface=wan2 src-address=0.0.0.0/0
+/ip firewall filter add action=drop chain=forward comment="e.pra.punjab.gov.pk only from WAN1" dst-address-list=e.pra.punjab.gov.pk in-interface=LAN-Bridge out-interface=wan2 src-address=0.0.0.0/0
+/ip firewall filter add action=drop chain=forward comment="vulms.vu.edu.pk only from WAN1" dst-address-list=vulms.vu.edu.pk in-interface=LAN-Bridge out-interface=wan2 src-address=0.0.0.0/0

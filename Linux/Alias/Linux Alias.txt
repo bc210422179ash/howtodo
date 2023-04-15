@@ -1,0 +1,21 @@
+to print existing alias
+alias -p
+to add new temporary alias
+alias instal='sudo apt install'
+to add permanently alias edit .bashrc file in user's home directory
+nano /home/user/.bashrc
+add aleas below Commnet"some more alias"
+to update run 
+source .bashrc
+
+
+
+
+
+
+
+
+
+alias instal='sudo apt install'
+alias sd='sudo'
+alias nettest='speedtest-cli --secure'

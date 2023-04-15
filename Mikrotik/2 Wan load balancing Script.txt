@@ -1,0 +1,69 @@
+Enterface Rename to "WAN1" and "WAN2"
+Change IP addresses 
+
+
+/ip address
+add address=192.168.10.1/24 interface=WAN1 network=192.168.10.0
+add address=192.168.11.1/24 interface=WAN1 network=192.168.11.0
+add address=192.168.20.1/24 interface=LAN network=192.168.20.0
+/ip dhcp-server network
+add address=192.168.20.0/24 gateway=192.168.20.1
+/ip dns
+set servers=8.8.8.8,8.8.4.4
+/ip firewall nat
+add action=masquerade chain=srcnat comment=LAN--->WAN
+/ip firewall service-port
+set ftp disabled=yes
+set tftp disabled=yes
+set irc disabled=yes
+set h323 disabled=yes
+set sip disabled=yes
+set pptp disabled=yes
+set udplite disabled=yes
+set dccp disabled=yes
+set sctp disabled=yes
+/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes port=3005
+set ssh disabled=yes
+set api disabled=yes
+set winbox port=3004
+set api-ssl disabled=yes
+/system clock
+set time-zone-name=Asia/Karachi
+/system identity
+set name=Company-Name
+/system ntp client
+set enabled=yes
+/system ntp client servers
+add address=216.239.35.0
+
+/ip firewall mangle
+add action=accept chain=prerouting dst-address=192.168.10.0/24
+add action=accept chain=prerouting dst-address=192.168.11.0/24
+add action=mark-connection chain=input in-interface=WAN1 new-connection-mark=\
+    WAN1_conn passthrough=yes
+add action=mark-connection chain=input in-interface=WAN2 new-connection-mark=\
+    WAN2_conn passthrough=yes
+add action=mark-routing chain=output connection-mark=WAN1_conn \
+    new-routing-mark=to_WAN1 passthrough=yes
+add action=mark-routing chain=output connection-mark=WAN2_conn \
+    new-routing-mark=to_WAN2 passthrough=yes
+add action=mark-connection chain=prerouting dst-address-type=!local \
+    new-connection-mark=WAN1_conn passthrough=yes per-connection-classifier=\
+    both-addresses-and-ports:2/0 src-address=192.168.88.0/24
+add action=mark-connection chain=prerouting dst-address-type=!local \
+    new-connection-mark=WAN2_conn passthrough=yes per-connection-classifier=\
+    both-addresses-and-ports:2/1 src-address=192.168.88.0/24
+add action=mark-routing chain=prerouting connection-mark=WAN1__conn \
+    new-routing-mark=to_WAN1 passthrough=yes
+add action=mark-routing chain=prerouting connection-mark=WAN2__conn \
+    new-routing-mark=to_WAN2 passthrough=yes
+/ip firewall nat
+add action=masquerade chain=srcnat out-interface=WAN1
+add action=masquerade chain=srcnat out-interface=WAN2
+/ip route
+add check-gateway=ping distance=1 gateway=192.168.10.1 routing-mark=to_WAN1
+add check-gateway=ping distance=1 gateway=192.168.11.1 routing-mark=to_WAN2
+add check-gateway=ping distance=1 gateway=192.168.10.1,.192.168.11.1

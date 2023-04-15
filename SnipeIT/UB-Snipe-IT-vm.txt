@@ -1,0 +1,24 @@
+How to Install SnipeIT  https://syncbricks.com/snipe-it-instsallation-ubuntu-20-04/   and   https://www.youtube.com/watch?v=11W7Jukp9XE
+How to Configure SnipeIT  https://youtu.be/TDyyjl_MBps
+Importing Assets and More  https://snipe-it.readme.io/docs/importing
+
+
+
+
+
+
+
+
+
+
+
+Configurations Files
+sudo nano /etc/apache2/sites-available/snipe-it.conf
+sudo nano /var/www/snipe-it/.env
+
+
+
+
+
+
+

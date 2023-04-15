@@ -1,0 +1,24 @@
+#netplan file location is /etc/netplan/00-installer-config.yaml
+
+#Network Static Config by 'Aqib Shahzad'
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens18:
+      addresses:
+        - 103.73.101.38/29
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+      routes:
+        - to: default
+          via: 103.73.101.33
+
+
+
+#Network Dynamic Config by 'Aqib Shahzad'
+network:
+  ethernets:
+    ens18:
+      dhcp4: true
+  version: 2

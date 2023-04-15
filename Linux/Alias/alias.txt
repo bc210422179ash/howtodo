@@ -1,0 +1,3 @@
+alias instal='sudo apt install'
+alias sd='sudo'
+alias nettest='speedtest-cli --secure'
