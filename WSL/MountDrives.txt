@@ -1,0 +1,28 @@
+How to Mount/Access Windows and External Drives such As C, D... or USBs form Windows Subsystem for Linux
+
+Drives location: 
+cd /mnt 
+ls
+
+c Drive is already mont
+
+Add and mount d, e,... Drives 
+mkdir d 
+cd d 
+sudo mount -t drvfs D: /mnt/d 
+
+Un MOnt the Drive
+sudo umount -t drvfs D: /mnt/d
+sudo rm -r d
+
+mount network shares without smbfs
+sudo mount -t drvfs \\server\share /mnt/share
+
+Add Drives permanetely 
+cd /etc
+sudo nano fstab
+#Add Monting drives such as below 
+D: /mnt/d drvfs defaults 0 0
+E: /mnt/e drvfs defaults 0 0
+F: /mnt/f drvfs defaults 0 0
+sudo mount -a       
